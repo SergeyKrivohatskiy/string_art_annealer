@@ -5,7 +5,7 @@
 int main(int, char*[])
 {
     cv::Mat img = cv::imread(
-        "C:/Users/1/PycharmProjects/playing_with_opencv/yoda_monochrome_by_timdallinger-d4yya3v.png",
+        "img.png",
         CV_LOAD_IMAGE_GRAYSCALE);
 
     assert(img.type() == CV_8U);
@@ -16,12 +16,11 @@ int main(int, char*[])
         }
     }
 
-    StringArtAnnealer annealer(targetImage, 100, 20000);
-
-    auto const schedule = annealer.computeRunSchedule(10, 100, true);
+    StringArtAnnealer annealer(targetImage, 300, 20000);
 
     while (true) {
-        annealer.runAnnealing(schedule, 10);
+        auto const schedule = annealer.computeRunSchedule(10, 50, true);
+        annealer.runAnnealing(schedule, 100);
 
         for (int i = 0; i < img.rows; ++i) {
             for (int j = 0; j < img.cols; ++j) {
@@ -30,7 +29,7 @@ int main(int, char*[])
             }
         }
         cv::imwrite(
-            "C:/Users/1/PycharmProjects/playing_with_opencv/yoda_monochrome_by_timdallinger-d4yya3v_out.png",
+            "img_out.png",
             img);
     }
 
